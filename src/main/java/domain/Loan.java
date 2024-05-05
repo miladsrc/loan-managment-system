@@ -4,7 +4,9 @@ import base.entity.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.SoftDelete;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,6 +17,8 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@SoftDelete
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Loan extends BaseEntity<Long> {
 
 

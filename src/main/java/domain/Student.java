@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.SoftDelete;
 
 import java.sql.Date;
@@ -19,6 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @SoftDelete
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Student extends BaseEntity<Long> {
 
     @Size(min = 2, max = 50)

@@ -4,6 +4,7 @@ import base.entity.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.SoftDelete;
 
 import java.sql.Date;
@@ -14,8 +15,9 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@SoftDelete
 @ToString
+@SoftDelete
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Refund extends BaseEntity<Long> {
 
     @NotNull

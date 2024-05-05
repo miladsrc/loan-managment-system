@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SoftDelete;
 
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @SoftDelete(columnName = "isDelete")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class BankCard extends BaseEntity<Long> {
 
     @NotNull
