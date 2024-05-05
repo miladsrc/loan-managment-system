@@ -26,9 +26,7 @@ public class BankCard extends BaseEntity<Long> {
     @Enumerated
     Bank bank;
 
-    @NotNull
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "bank-card-list")
+    @OneToOne(cascade = CascadeType.ALL)
     Student student;
 
     @NotNull

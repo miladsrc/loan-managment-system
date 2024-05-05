@@ -1,5 +1,7 @@
 package domain;
 
-public  enum LoanType {
-
+public enum LoanType {
+    TUITION,
+    EDUCATION,
+    HOUSING
 }

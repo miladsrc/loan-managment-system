@@ -12,6 +12,6 @@ public class LoanRepositoryImpl extends BaseRepositoryImpl<Loan, Long> implement
 
     @Override
     public Class<Loan> getEntityClass() {
-        return null;
+        return Loan.class;
     }
 }

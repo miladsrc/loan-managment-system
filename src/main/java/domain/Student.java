@@ -9,7 +9,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.SoftDelete;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +24,19 @@ public class Student extends BaseEntity<Long> {
 
     @Size(min = 2, max = 50)
     @Column(length = 50)
-    String firstname;
+    String firstName;
 
     @Size(min = 2, max = 50)
     @Column(length = 50)
-    String lastname;
+    String lastName;
+
+    @Size(min = 2, max = 50)
+    @Column(length = 50)
+    String fatheName;
+
+    @Size(min = 2, max = 50)
+    @Column(length = 50)
+    String motherName;
 
     @Pattern(regexp = "\\d{10}")
     @Column(length = 10)
@@ -38,6 +45,11 @@ public class Student extends BaseEntity<Long> {
     @Pattern(regexp = "\\d{11}")
     @Column(length = 11)
     String phoneNumber;
+
+    @Pattern(regexp = "\\d{10}")
+    @Column(length = 11)
+    String studentNumber;
+
 
     @Enumerated(EnumType.ORDINAL)
     City city;
@@ -50,7 +62,7 @@ public class Student extends BaseEntity<Long> {
 
     @Temporal(TemporalType.DATE)
     @Column
-    Date EnteryDate;
+    LocalDate EnteryDate;
 
     @NotNull
     @Size(min = 2, max = 100)
@@ -63,7 +75,7 @@ public class Student extends BaseEntity<Long> {
 
     @NotNull
     @Column(length = 50)
-    String grade;
+    Grade grade;
 
     @Column
     boolean dorm;
@@ -74,20 +86,26 @@ public class Student extends BaseEntity<Long> {
     @Column
     int contractNum;
 
-    @OneToMany(mappedBy ="student", cascade = CascadeType.ALL )
-    List<BankCard> bankCardList=new ArrayList<> ();
+    @Column
+    String password;
+
+    @OneToOne(mappedBy ="student", cascade = CascadeType.ALL )
+    BankCard bankCard;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     List<Loan> loanList=new ArrayList<> ();
 
 
     @Builder
-    public Student(Long aLong, String firstname, String lastname, String nationalCode, String phoneNumber, City city, boolean isMarried, Student partner, Date enteryDate, String universityName, TypeUniversity typeUniversity, String grade, boolean dorm, boolean isEducate, int contractNum, List<BankCard> bankCardList, List<Loan> loanList) {
-        super ( aLong );
-        this.firstname = firstname;
-        this.lastname = lastname;
+    public Student(Long aLong, String firstName, String lastName, String fatheName, String motherName, String nationalCode, String phoneNumber, String studentNumber, City city, boolean isMarried, Student partner, LocalDate enteryDate, String universityName, TypeUniversity typeUniversity, Grade grade, boolean dorm, boolean isEducate, int contractNum, String password, BankCard bankCard, List<Loan> loanList) {
+        super(aLong);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.fatheName = fatheName;
+        this.motherName = motherName;
         this.nationalCode = nationalCode;
         this.phoneNumber = phoneNumber;
+        this.studentNumber = studentNumber;
         this.city = city;
         this.isMarried = isMarried;
         this.partner = partner;
@@ -98,7 +116,8 @@ public class Student extends BaseEntity<Long> {
         this.dorm = dorm;
         this.isEducate = isEducate;
         this.contractNum = contractNum;
-        this.bankCardList = bankCardList;
+        this.password = password;
+        this.bankCard = bankCard;
         this.loanList = loanList;
     }
 }

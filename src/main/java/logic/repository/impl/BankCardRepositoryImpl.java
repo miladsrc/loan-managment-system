@@ -14,6 +14,6 @@ public class BankCardRepositoryImpl extends BaseRepositoryImpl<BankCard,Long>
 
     @Override
     public Class<BankCard> getEntityClass() {
-        return null;
+        return BankCard.class;
     }
 }

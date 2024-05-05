@@ -9,14 +9,21 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
 //        LocalDate local = getDateFromUser ();
-
-        SessionFactorySingleton.getInstance ();
+        System.out.println(generatePassword());
+        System.out.println(generatePassword());
+        System.out.println(generatePassword());
+        System.out.println(generatePassword());
+        System.out.println(generatePassword());
+        System.out.println(generatePassword());
+        System.out.println(generatePassword());
+//        SessionFactorySingleton.getInstance ();
 //        System.out.println (local.getYear ());
 //        System.out.println (local.getDayOfMonth ());
 //        System.out.println (local.getMonth ());
@@ -24,9 +31,9 @@ public class Main {
 //        System.out.println (local.getDayOfWeek ());
 
 
-        BankCard bankCard = BankCard.builder()
-                .build();
-        ApplicationContext.getBankCardService ().saveOrUpdate ( bankCard );
+//        BankCard bankCard = BankCard.builder()
+//                .build();
+//        ApplicationContext.getBankCardService ().saveOrUpdate ( bankCard );
 
     }
 
@@ -49,5 +56,30 @@ public class Main {
        }
 
         return date;
+    }
+
+
+    private static String generatePassword() {
+        String lowercase = "abcdefghijklmnopqrstuvwxyz";
+        String digits = "0123456789";
+        String specialCharacters = "!@#$%^&*()_+";
+
+        Random random = new Random();
+        StringBuilder password = new StringBuilder();
+
+        for (int i = 0; i < 2; i++) {
+            password.append(lowercase.charAt(random.nextInt(lowercase.length())));
+        }
+        for (int i = 0; i < 2; i++) {
+            password.append(lowercase.toUpperCase().charAt(random.nextInt(lowercase.length())));
+        }
+        for (int i = 0; i < 2; i++) {
+            password.append(digits.charAt(random.nextInt(digits.length())));
+        }
+        for (int i = 0; i < 2; i++) {
+            password.append(specialCharacters.charAt(random.nextInt(specialCharacters.length())));
+        }
+
+        return password.toString();
     }
 }

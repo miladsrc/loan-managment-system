@@ -12,6 +12,6 @@ public class RefundRepositoryImpl extends BaseRepositoryImpl<Refund, Long> imple
 
     @Override
     public Class<Refund> getEntityClass() {
-        return null;
+        return Refund.class;
     }
 }
