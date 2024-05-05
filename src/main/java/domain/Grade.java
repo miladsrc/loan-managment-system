@@ -1,2 +1,4 @@
-package domain;public enum grade {
+package domain;
+
+public enum Grade {
 }

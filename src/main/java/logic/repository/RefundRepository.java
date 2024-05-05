@@ -1,2 +1,7 @@
-package logic.repository;public class RefundRepository {
+package logic.repository;
+
+import base.repository.BaseRepository;
+import domain.Refund;
+
+public interface RefundRepository extends BaseRepository<Refund, Long> {
 }

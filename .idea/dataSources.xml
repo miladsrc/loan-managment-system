@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="maktab@localhost" uuid="35c5a06d-7947-4895-b43f-fce267b5960c">
+    <data-source source="LOCAL" name="target:classes:hibernate.cfg.xml/Hibernate" uuid="a6781d97-4620-465b-a615-2ea9b37a3bbd">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/98903/Downloads/quarkus-quickstarts-main/front/HW17/target/classes/hibernate.cfg.xml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/maktab</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="src:main:resources:hibernate.cfg.xml/Hibernate" uuid="2ef31454-6277-4c51-84de-892112c1761b">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/98903/Downloads/quarkus-quickstarts-main/front/HW17/src/main/resources/hibernate.cfg.xml</remarks>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/maktab</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>

@@ -1,4 +1,4 @@
-package org.base.exception;
+package base.exception;
 
 public class NotFoundException extends Throwable {
     public NotFoundException(String message) {

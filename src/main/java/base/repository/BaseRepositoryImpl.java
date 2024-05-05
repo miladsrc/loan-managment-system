@@ -1,7 +1,7 @@
-package org.base.repository;
+package base.repository;
 
+import base.entity.BaseEntity;
 import jakarta.persistence.EntityTransaction;
-import org.base.entity.BaseEntity;
 import org.hibernate.Session;
 
 import java.io.Serializable;
@@ -12,8 +12,6 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity<ID>, ID extends Se
         implements BaseRepository<T, ID> {
 
     protected final Session session;
-
-
 
     protected final Class<T> entityClass;
     public abstract Class<T> getEntityClass();

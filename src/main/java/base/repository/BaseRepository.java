@@ -1,7 +1,7 @@
-package org.base.repository;
+package base.repository;
 
 import jakarta.persistence.EntityTransaction;
-import org.base.entity.BaseEntity;
+import base.entity.BaseEntity;
 
 import java.io.Serializable;
 import java.util.List;

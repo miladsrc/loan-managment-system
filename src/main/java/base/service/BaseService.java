@@ -1,8 +1,8 @@
-package org.base.service;
+package base.service;
 
+import base.entity.BaseEntity;
+import base.exception.NotFoundException;
 import jakarta.persistence.EntityTransaction;
-import org.base.entity.BaseEntity;
-import org.base.exception.NotFoundException;
 
 import java.io.Serializable;
 import java.util.List;

@@ -1,12 +1,12 @@
-package org.base.service;
+package base.service;
 
+import base.entity.BaseEntity;
+import base.exception.NotFoundException;
+import base.repository.BaseRepository;
 import jakarta.persistence.EntityTransaction;
-import org.base.entity.BaseEntity;
-import org.base.exception.NotFoundException;
-import org.base.repository.BaseRepository;
 import org.hibernate.HibernateError;
 import org.hibernate.SessionFactory;
-import org.util.SessionFactorySingleton;
+import util.SessionFactorySingleton;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
