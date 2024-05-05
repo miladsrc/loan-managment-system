@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fa6d01a9-5768-4f58-ad9b-0cbaea3976e5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/base/entity/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/base/entity/BaseEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/base/exception/NotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/base/exception/NotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/base/repository/BaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/base/repository/BaseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/base/repository/BaseRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/base/repository/BaseRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/base/service/BaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/base/service/BaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/base/service/BaseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/base/service/BaseServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/Bank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/Bank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/BankCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/BankCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/City.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/City.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/Grade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/Grade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/Loan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/Loan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/LoanType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/LoanType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/Refund.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/Refund.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/TypeUniversity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/TypeUniversity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/repository/BankCardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/repository/BankCardRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/repository/LoanRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/repository/LoanRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/repository/RefundRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/repository/RefundRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/repository/StudentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/repository/StudentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/repository/impl/BankCardRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/repository/impl/BankCardRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/repository/impl/LoanRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/repository/impl/LoanRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/repository/impl/RefundRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/repository/impl/RefundRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/repository/impl/StudentRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/repository/impl/StudentRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/service/BankCardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/service/BankCardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/service/LoanService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/service/LoanService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/service/RefundService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/service/RefundService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/service/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/service/StudentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/service/impl/BankCardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/service/impl/BankCardServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/service/impl/LoanServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/service/impl/LoanServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/service/impl/RefundServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/service/impl/RefundServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/service/impl/StudentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/service/impl/StudentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/ApplicationContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/ApplicationContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/SessionFactorySingleton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/SessionFactorySingleton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2g34JLh5qqHOzY74clS0FXrHETL" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fa6d01a9-5768-4f58-ad9b-0cbaea3976e5" name="Changes" comment="" />
+      <created>1714912857107</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1714912857107</updated>
+      <workItem from="1714912858407" duration="20000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
