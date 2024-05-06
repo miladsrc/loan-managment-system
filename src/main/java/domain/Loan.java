@@ -38,10 +38,11 @@ public class Loan extends BaseEntity<Long> {
     @Enumerated
     Grade grade;
 
-    @Temporal(TemporalType.DATE)
-    LocalDate data;
+    @NotNull
+    @Column(columnDefinition = "DATE", name = "loan_date")
+    LocalDate date;
 
-    @Column(name = "chek")
+    @Column(name = "loan_checked")
     @ColumnDefault ( "false" )
     boolean checkOut;
 
@@ -60,13 +61,13 @@ public class Loan extends BaseEntity<Long> {
 
 
     @Builder
-    public Loan(Long aLong, LoanType loanType, Student student, long amount, Grade grade, LocalDate data, boolean checkOut, List<Refund> refundList) {
+    public Loan(Long aLong, LoanType loanType, Student student, long amount, Grade grade, LocalDate date, boolean checkOut, List<Refund> refundList) {
         super ( aLong );
         this.loanType = loanType;
         this.student = student;
         this.amount = amount;
         this.grade = grade;
-        this.data = data;
+        this.date = date;
         this.checkOut = checkOut;
         this.refundList = refundList;
     }

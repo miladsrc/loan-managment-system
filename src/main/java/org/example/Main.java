@@ -16,13 +16,13 @@ public class Main {
 
     public static void main(String[] args) {
 //        LocalDate local = getDateFromUser ();
-        System.out.println(generatePassword());
-        System.out.println(generatePassword());
-        System.out.println(generatePassword());
-        System.out.println(generatePassword());
-        System.out.println(generatePassword());
-        System.out.println(generatePassword());
-        System.out.println(generatePassword());
+//        System.out.println(generatePassword());
+//        System.out.println(generatePassword());
+//        System.out.println(generatePassword());
+//        System.out.println(generatePassword());
+//        System.out.println(generatePassword());
+//        System.out.println(generatePassword());
+//        System.out.println(generatePassword());
 //        SessionFactorySingleton.getInstance ();
 //        System.out.println (local.getYear ());
 //        System.out.println (local.getDayOfMonth ());
@@ -30,7 +30,8 @@ public class Main {
 //        System.out.println (local.getChronology ());
 //        System.out.println (local.getDayOfWeek ());
 
-
+Menu menu = new Menu();
+menu.startMenu();
 //        BankCard bankCard = BankCard.builder()
 //                .build();
 //        ApplicationContext.getBankCardService ().saveOrUpdate ( bankCard );

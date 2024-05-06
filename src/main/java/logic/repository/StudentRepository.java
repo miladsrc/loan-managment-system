@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface StudentRepository extends BaseRepository<Student, Long> {
 
-    Optional<Student> findByNationalCodeAndPassword(String nationalCode, String password);
+    Student findByNationalCodeAndPassword(String nationalCode, String password);
 }

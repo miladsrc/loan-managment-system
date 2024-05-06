@@ -5,8 +5,6 @@ import domain.Student;
 import logic.repository.StudentRepository;
 import logic.service.StudentService;
 
-import java.util.Optional;
-
 public class StudentServiceImpl extends BaseServiceImpl<Student, Long, StudentRepository>
 implements StudentService {
     public StudentServiceImpl(StudentRepository repository) {
@@ -15,7 +13,12 @@ implements StudentService {
 
 
     @Override
-    public Optional<Student> getStudentByNationalCodeAndPassword(String nationalCode, String password){
-        return repository.findByNationalCodeAndPassword(nationalCode, password);
+    public Student getStudentByNationalCodeAndPassword(String nationalCode, String password){
+        try {
+            return repository.findByNationalCodeAndPassword(nationalCode, password);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

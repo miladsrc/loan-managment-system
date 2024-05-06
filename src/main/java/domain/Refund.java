@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.SoftDelete;
 
 import java.sql.Date;
@@ -22,21 +23,24 @@ public class Refund extends BaseEntity<Long> {
 
     @NotNull
     @Min(1)
+    @Column(name = "refund_num")
     int refundNum;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "refund_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "loan_id")
     Loan loan;
 
     @NotNull
     @Min(0)
+    @Column(name = "refund_amount")
     Double price;
 
     @NotNull
-    @Column(columnDefinition = "DATE")
+    @Column(columnDefinition = "DATE", name = "refund_date")
     LocalDate date;
 
+    @Column(name = "is_checked")
     boolean checkout;
 
 

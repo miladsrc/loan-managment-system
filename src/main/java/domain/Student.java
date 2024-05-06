@@ -23,7 +23,7 @@ import java.util.List;
 public class Student extends BaseEntity<Long> {
 
     @Size(min = 2, max = 50)
-    @Column(length = 50)
+    @Column(length = 50 )
     String firstName;
 
     @Size(min = 2, max = 50)
@@ -46,7 +46,6 @@ public class Student extends BaseEntity<Long> {
     @Column(length = 11)
     String phoneNumber;
 
-    @Pattern(regexp = "\\d{10}")
     @Column(length = 11)
     String studentNumber;
 

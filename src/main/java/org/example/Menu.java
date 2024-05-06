@@ -5,6 +5,8 @@ import logic.service.BankCardService;
 import logic.service.LoanService;
 import logic.service.RefundService;
 import logic.service.StudentService;
+import org.hibernate.exception.DataException;
+import org.hibernate.service.spi.ServiceException;
 import util.ApplicationContext;
 
 import java.time.DateTimeException;
@@ -34,40 +36,44 @@ public class Menu {
     public void startMenu() {
 
         while (true) {
+            try {
+                System.out.println("Welcome Studetn!");
+                System.out.println("1. Login");
+                System.out.println("2. Register");
+                System.out.println("3. Update Information");
+                System.out.print("Please choose an option (1/2/3): ");
 
-            System.out.println("Welcome Studetn!");
-            System.out.println("1. Login");
-            System.out.println("2. Register");
-            System.out.println("3. Update Information");
-            System.out.print("Please choose an option (1/2/3): ");
+                int choice = scanner.nextInt();
 
-            int choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                    // Call login method
-                    break;
-                case 2:
-                    // Call register method
-                    break;
-                case 3:
-                    // Call update information method
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please select 1, 2, or 3.");
+                switch (choice) {
+                    case 1:
+                        // Call login method
+                        break;
+                    case 2:
+                        signUp();
+                        break;
+                    case 3:
+                        // Call update information method
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please select 1, 2, or 3.");
+                }
+            } catch (InputMismatchException e) {
+                throw new InputMismatchException(e.getMessage());
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
     }
 
 
-    public void signUp() {
+    public void signUp() throws InterruptedException {
 
         City selectedCity = null;
         LocalDate date = null;
         DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         TypeUniversity selectedType = null;
         Grade selectedGrade = null;
-
 
         //Display and get the normal input from user
         String firstName = getInput(scanner, "Please enter first name:");
@@ -77,6 +83,8 @@ public class Menu {
         String nationalCode = getInput(scanner, "Please enter national code:", "\\d{10}");
         String studentNumber = getInput(scanner, "Please enter student number:");
         String uniName = getInput(scanner, "Please enter university name:");
+        int contractNumber = Integer.parseInt(getInput(scanner, "enter your contract number:"));
+        String phoneNumber = getInput(scanner, "enter your phone number:");
         boolean dorm = getYesNoInput(scanner, "Do you live in a dorm (Y/N)?");
         boolean isEducating = getYesNoInput(scanner, "Are you currently studying (Y/N)?");
 
@@ -106,7 +114,8 @@ public class Menu {
         //Gettin entry date of student
         while (date == null) {
             System.out.println("Please enter your entry date (yyyy-mm-dd):");
-            String input = scanner.nextLine();
+            String input = scanner.next();
+            scanner.nextLine();
 
             try {
                 date = LocalDate.parse(input, DATE_FORMATTER);
@@ -166,13 +175,12 @@ public class Menu {
         }
 
 
-
         //ask is marrid
         System.out.println("Are you married (Y/N)?");
         String marriedInput = scanner.next().trim();
 
         boolean isMarried = false;
-        Optional<Student> partner = Optional.empty();
+        Student partner = null;
 
         try {
             if ("Y".equalsIgnoreCase(marriedInput)) {
@@ -182,7 +190,7 @@ public class Menu {
                 String passwordOfPartner = scanner.next();
 
                 partner = studentService.getStudentByNationalCodeAndPassword(nationalCodePartner, passwordOfPartner);
-                isMarried = partner.isPresent();
+                isMarried = partner != null && partner.getPartner() == null;
             }
         } catch (Exception e) {
             System.out.println("An error occurred while processing the information. Please try again.");
@@ -206,7 +214,7 @@ public class Menu {
                 .studentNumber(studentNumber)
                 .city(selectedCity)
                 .isMarried(isMarried)
-                .partner(partner.orElse(null))
+                .partner(partner)
                 .enteryDate(date)
                 .universityName(uniName)
                 .typeUniversity(selectedType)
@@ -215,12 +223,40 @@ public class Menu {
                 .isEducate(isEducating)
                 .password(password)
                 .bankCard(bankCard)
+                .contractNum(contractNumber)
+                .phoneNumber(phoneNumber)
                 .build();
-
         // Print national code and password
-        System.out.println("National Code: " + nationalCode);
+        System.out.println("****************************************");
+        System.out.println("Your Username and Password is :");
+        System.out.println("Username : " + nationalCode);
         System.out.println("Password: " + password);
-
+        System.out.println("Please keep it secure and dont share with any one !");
+        System.out.println("****************************************");
+        //Saving logic
+        try {
+            // Save student information
+            studentService.saveOrUpdate(student);
+            Thread.sleep(1000);
+            // Associate bank card with student and save
+            bankCard.setStudent(student);
+            bankCardService.saveOrUpdate(bankCard);
+            Thread.sleep(1000);
+            // Update partner information if married
+            if (isMarried) {
+                partner.setMarried(true);
+                partner.setPartner(student);
+                studentService.saveOrUpdate(partner);
+            }
+        } catch (DataException e) {
+            // Handle database access errors
+            e.getErrorMessage();
+            throw new ServiceException("Unable to save student information.", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            e.printStackTrace();
+            throw new ServiceException("An unexpected error occurred while saving data.", e);
+        }
     }
 
 
@@ -300,6 +336,22 @@ public class Menu {
             cardNumber = scanner.nextLine();
         }
         bankCard.setCardNumber(cardNumber);
+
+
+        Bank selectedBank = null;
+
+        while (selectedBank == null) {
+            System.out.println("Please enter a bank name (MELLAT, TEJARAT, or BLUEBANK):");
+            String bankNameInput = scanner.next().toUpperCase();
+            try {
+                selectedBank = Bank.valueOf(bankNameInput);
+                System.out.println("You have selected: " + selectedBank);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid bank name. Please enter one of the valid options.");
+            }
+            bankCard.setBank(selectedBank);
+        }
+
 
         System.out.println("Please enter your CVV2 (4 digits):");
         int cvv2 = scanner.nextInt();
