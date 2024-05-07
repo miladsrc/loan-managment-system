@@ -18,6 +18,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Scanner;
 
+
 public class Menu {
 
 
@@ -30,7 +31,7 @@ public class Menu {
     StudentService studentService = ApplicationContext.getStudentService();
 
 
-    Optional<Student> student;
+    private static Student student;
 
 
     public void startMenu() {
@@ -40,20 +41,16 @@ public class Menu {
                 System.out.println("Welcome Studetn!");
                 System.out.println("1. Login");
                 System.out.println("2. Register");
-                System.out.println("3. Update Information");
-                System.out.print("Please choose an option (1/2/3): ");
+                System.out.print("Please choose an option (1/2): ");
 
                 int choice = scanner.nextInt();
 
                 switch (choice) {
                     case 1:
-                        // Call login method
+                        studentLogin();
                         break;
                     case 2:
-                        signUp();
-                        break;
-                    case 3:
-                        // Call update information method
+                        studentSignUp();
                         break;
                     default:
                         System.out.println("Invalid choice. Please select 1, 2, or 3.");
@@ -67,7 +64,90 @@ public class Menu {
     }
 
 
-    public void signUp() throws InterruptedException {
+    //-----------------------------LOGINGIN METHOD------------------------------------
+
+    private void studentLogin() {
+        while (student == null) {
+            try {
+                System.out.print("Enter your  national code: ");
+                String nationalCodePartner = scanner.next();
+                System.out.print("Enter your  password: ");
+                String passwordOfPartner = scanner.next();
+
+                student = studentService.getStudentByNationalCodeAndPassword(nationalCodePartner, passwordOfPartner);
+
+                if (student.getId().equals(null)) {
+                    System.out.println("Invalid credentials. Please try again.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter valid values.");
+                scanner.nextLine();
+            } catch (Exception e) {
+                System.out.println("An unexpected error occurred. Please try again later.");
+                e.printStackTrace();
+            }
+        }
+
+        loginMenu();
+    }
+
+
+    //-----------------------------LOGIN MENU ------------------------------------
+
+    private void loginMenu() {
+
+        if (student.getLoanList().isEmpty()) {
+            System.out.printf("Welcome %s %s ", student.getFirstName(), student.getLastName());
+            System.out.println("\nPlease select the type of loan you want to register for:");
+            System.out.println("1. Tuition Loan");
+            System.out.println("2. Educational Loan");
+            System.out.println("3. Housing Deposit Loan");
+            System.out.print("Your choice (1-3): ");
+            int loanType = scanner.nextInt();
+
+            switch (loanType) {
+                case 1:
+                    registerTuitionLoan();
+                    break;
+                case 2:
+                    registerEducationalLoan();
+                    break;
+                case 3:
+                    registerHousingDepositLoan();
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+            }
+        }else {
+            refundMenu();
+        }
+    }
+
+    public static void registerTuitionLoan() {
+        // Code related to tuition loan registration
+        System.out.println("Registration for Tuition Loan completed.");
+    }
+
+    public static void registerEducationalLoan() {
+        // Code related to educational loan registration
+        System.out.println("Registration for Educational Loan completed.");
+    }
+
+    public static void registerHousingDepositLoan() {
+        // Code related to housing deposit loan registration
+        System.out.println("Registration for Housing Deposit Loan completed.");
+    }
+
+
+    //-----------------------------REFUND MENU ------------------------------------
+
+    private void refundMenu() {
+        System.out.printf("Greeting's %s %s Nice To See You Again ! --------------", student.getFirstName(), student.getLastName());
+
+    }
+
+    //-----------------------------SIGN UP METHOD------------------------------------
+    public void studentSignUp() throws InterruptedException {
 
         City selectedCity = null;
         LocalDate date = null;
@@ -260,7 +340,7 @@ public class Menu {
     }
 
 
-    //-----------------------------METHOD-----------------------------------
+    //------------------------------------------METHOD-------------------------------------------------
 
     private static String generatePassword() {
         String lowercase = "abcdefghijklmnopqrstuvwxyz";

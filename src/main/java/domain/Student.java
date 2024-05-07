@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.SoftDelete;
 
 import java.time.LocalDate;
@@ -20,6 +21,8 @@ import java.util.List;
 @Entity
 @SoftDelete
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Student extends BaseEntity<Long> {
 
     @Size(min = 2, max = 50)
@@ -38,11 +41,11 @@ public class Student extends BaseEntity<Long> {
     @Column(length = 50)
     String motherName;
 
-    @Pattern(regexp = "\\d{10}")
+//    @Pattern(regexp = "\\d{10}")
     @Column(length = 10)
     String nationalCode;
 
-    @Pattern(regexp = "\\d{11}")
+//    @Pattern(regexp = "\\d{11}")
     @Column(length = 11)
     String phoneNumber;
 
@@ -118,6 +121,33 @@ public class Student extends BaseEntity<Long> {
         this.password = password;
         this.bankCard = bankCard;
         this.loanList = loanList;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", fatheName='" + fatheName + '\'' +
+                ", motherName='" + motherName + '\'' +
+                ", nationalCode='" + nationalCode + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", studentNumber='" + studentNumber + '\'' +
+                ", city=" + city +
+                ", isMarried=" + isMarried +
+                ", partner=" + partner +
+                ", EnteryDate=" + EnteryDate +
+                ", universityName='" + universityName + '\'' +
+                ", typeUniversity=" + typeUniversity +
+                ", grade=" + grade +
+                ", dorm=" + dorm +
+                ", isEducate=" + isEducate +
+                ", contractNum=" + contractNum +
+                ", password='" + password + '\'' +
+                ", bankCard=" + bankCard +
+                ", loanList=" + loanList +
+                ", id=" + id +
+                '}';
     }
 }
 

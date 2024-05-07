@@ -4,22 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa6d01a9-5768-4f58-ad9b-0cbaea3976e5" name="Changes" comment="#4- Menu and sign up">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a6781d97-4620-465b-a615-2ea9b37a3bbd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a6781d97-4620-465b-a615-2ea9b37a3bbd.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="fa6d01a9-5768-4f58-ad9b-0cbaea3976e5" name="Changes" comment="#5- Menu and sign up last changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/BankCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/BankCard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/domain/Loan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/Loan.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/domain/Refund.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/Refund.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/domain/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/logic/repository/StudentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/repository/StudentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/logic/repository/impl/StudentRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/repository/impl/StudentRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/logic/service/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/service/StudentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/logic/service/impl/StudentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/service/impl/StudentServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Menu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/logic/repository/impl/StudentRepositoryImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/logic/repository/impl/StudentRepositoryImplTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +130,7 @@
       <workItem from="1714912858407" duration="1566000" />
       <workItem from="1714914445525" duration="13430000" />
       <workItem from="1714974247820" duration="83000" />
-      <workItem from="1714974851543" duration="10659000" />
+      <workItem from="1714974851543" duration="18856000" />
     </task>
     <task id="LOCAL-00001" summary="ALLLLLLLLLLLLLLLLfu..kin changes!!!">
       <option name="closed" value="true" />
@@ -178,7 +172,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714938007681</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="#5- Menu and sign up last changes">
+      <option name="closed" value="true" />
+      <created>1715006999423</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1715006999423</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,7 +203,8 @@
     <MESSAGE value="#2- unpushed files" />
     <MESSAGE value="#3- adjusting access level for all pojo class" />
     <MESSAGE value="#4- Menu and sign up" />
-    <option name="LAST_COMMIT_MESSAGE" value="#4- Menu and sign up" />
+    <MESSAGE value="#5- Menu and sign up last changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="#5- Menu and sign up last changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -217,7 +220,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/example/Menu.java</url>
-          <line>290</line>
+          <line>370</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

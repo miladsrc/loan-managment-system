@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.SoftDelete;
 
@@ -19,6 +20,8 @@ import java.time.LocalDate;
 @ToString
 @SoftDelete
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Refund extends BaseEntity<Long> {
 
     @NotNull

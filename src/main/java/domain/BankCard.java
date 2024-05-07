@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.SoftDelete;
 
 import java.sql.Date;
@@ -20,6 +21,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @SoftDelete(columnName = "isDelete")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class BankCard extends BaseEntity<Long> {
 
     @NotNull
