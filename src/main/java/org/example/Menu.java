@@ -1,5 +1,6 @@
 package org.example;
 
+import base.exception.NotFoundException;
 import domain.*;
 import logic.service.BankCardService;
 import logic.service.LoanService;
@@ -11,52 +12,53 @@ import util.ApplicationContext;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.InputMismatchException;
-import java.util.Optional;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class Menu {
 
 
-    Scanner scanner = new Scanner(System.in);
+    static Scanner scanner = new Scanner(System.in);
 
 
-    BankCardService bankCardService = ApplicationContext.getBankCardService();
-    LoanService loanService = ApplicationContext.getLoanService();
-    RefundService refundService = ApplicationContext.getRefundService();
-    StudentService studentService = ApplicationContext.getStudentService();
+    static BankCardService bankCardService = ApplicationContext.getBankCardService();
+    static LoanService loanService = ApplicationContext.getLoanService();
+    static RefundService refundService = ApplicationContext.getRefundService();
+    static StudentService studentService = ApplicationContext.getStudentService();
 
 
     private static Student student;
+    private static final List<Loan> loan = student.getLoanList();
+    private static final List<Refund> refund = refundService.findAll().stream()
+            .filter(r -> r.getLoan().getStudent().getId().equals(student.getId()))
+            .toList();
+    private static final BankCard bankCard = student.getBankCard();
 
 
-    public void startMenu() {
-
-        while (true) {
+    public static void startMenu() {
+        boolean flag = true;
+        while (flag) {
             try {
-                System.out.println("Welcome Studetn!");
+                System.out.println("Welcome Student!");
                 System.out.println("1. Login");
                 System.out.println("2. Register");
+                System.out.println("3. Exit");
                 System.out.print("Please choose an option (1/2): ");
 
                 int choice = scanner.nextInt();
 
                 switch (choice) {
-                    case 1:
-                        studentLogin();
-                        break;
-                    case 2:
-                        studentSignUp();
-                        break;
-                    default:
-                        System.out.println("Invalid choice. Please select 1, 2, or 3.");
+                    case 1 -> studentLogin();
+                    case 2 -> studentSignUp();
+                    case 3 -> flag = false;
+                    default -> System.out.println("Invalid choice. Please select 1 or 2.");
                 }
             } catch (InputMismatchException e) {
-                throw new InputMismatchException(e.getMessage());
+                System.out.println("Invalid input. Please enter a valid choice.");
+                scanner.nextLine();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -66,7 +68,7 @@ public class Menu {
 
     //-----------------------------LOGINGIN METHOD------------------------------------
 
-    private void studentLogin() {
+    public static void studentLogin() {
         while (student == null) {
             try {
                 System.out.print("Enter your  national code: ");
@@ -76,9 +78,6 @@ public class Menu {
 
                 student = studentService.getStudentByNationalCodeAndPassword(nationalCodePartner, passwordOfPartner);
 
-                if (student.getId().equals(null)) {
-                    System.out.println("Invalid credentials. Please try again.");
-                }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter valid values.");
                 scanner.nextLine();
@@ -88,66 +87,485 @@ public class Menu {
             }
         }
 
-        loginMenu();
+        choinceMenu();
+    }
+
+
+    public static void choinceMenu() {
+        System.out.println("\nChoose please :");
+        System.out.println("1: Take Loan ");
+        System.out.println("2: Refund Loan");
+        int input = scanner.nextInt();
+
+        switch (input) {
+            case 1 -> loginMenu();
+            case 2 -> refundMenu();
+            default -> {
+                System.out.println("Invalid input , please try again !");
+                choinceMenu();
+            }
+        }
     }
 
 
     //-----------------------------LOGIN MENU ------------------------------------
 
-    private void loginMenu() {
+    private static void loginMenu() {
 
-        if (student.getLoanList().isEmpty()) {
-            System.out.printf("Welcome %s %s ", student.getFirstName(), student.getLastName());
-            System.out.println("\nPlease select the type of loan you want to register for:");
-            System.out.println("1. Tuition Loan");
-            System.out.println("2. Educational Loan");
-            System.out.println("3. Housing Deposit Loan");
-            System.out.print("Your choice (1-3): ");
-            int loanType = scanner.nextInt();
 
-            switch (loanType) {
-                case 1:
-                    registerTuitionLoan();
-                    break;
-                case 2:
-                    registerEducationalLoan();
-                    break;
-                case 3:
-                    registerHousingDepositLoan();
-                    break;
-                default:
-                    System.out.println("Invalid choice.");
-            }
-        }else {
-            refundMenu();
+        System.out.printf("Welcome %s %s ", student.getFirstName(), student.getLastName());
+        System.out.println("\nPlease select the type of loan you want to register for:");
+        System.out.println("1. Tuition Loan");
+        System.out.println("2. Educational Loan");
+        System.out.println("3. Housing Deposit Loan");
+        System.out.print("Your choice (1-3): ");
+        int loanType = scanner.nextInt();
+
+        switch (loanType) {
+            case 1:
+                registerTuitionLoan();
+                break;
+            case 2:
+                registerEducationalLoan();
+                break;
+            case 3:
+                registerHousingDepositLoan();
+                break;
+            default:
+                System.out.println("Invalid choice.");
         }
+
     }
 
     public static void registerTuitionLoan() {
-        // Code related to tuition loan registration
-        System.out.println("Registration for Tuition Loan completed.");
+
+        if (student.getTypeUniversity().equals(TypeUniversity.DOLATI)) {
+            System.out.println("This tuition can't be applyied by you because of Dolati uni !");
+            choinceMenu();
+        }
+        boolean flag = false;
+        while (!flag) {
+            try {
+                flag = getCardInfo();
+                if (flag)
+                    if (registerEducation()) {
+                        Loan tuitionLoan = Loan.builder()
+                                .loanType(LoanType.TUITION)
+                                .student(student)
+                                .amount(tuituinLoanAmount())
+                                .grade(student.getGrade())
+                                .date(LocalDate.now())
+                                .checkOut(false)
+                                .build();
+
+                        //Set balance
+                        List<Refund> tuitionRefund = calculateMonthlyInstallments(tuituinLoanAmount(), tuitionLoan);
+                        tuitionLoan.setRefundList(tuitionRefund);
+                        bankCard.setBalance(tuituinLoanAmount());
+
+                        // Persist in the database
+                        Loan savedLoan = loanService.saveOrUpdate(tuitionLoan);
+                        bankCardService.saveOrUpdate(bankCard);
+                        if (savedLoan.getId() != null) {
+                            System.out.println("\n" + savedLoan.getLoanType() + " is now registered for " +
+                                    student.getFirstName() + " " + student.getLastName());
+                        }
+                        // Back to the menu
+                        choinceMenu();
+                    } else {
+                        System.out.println("youre graduated !");
+                        loginMenu();
+                    }
+                System.out.println("Registration for Tuition Loan completed.");
+            } catch (Exception e) {
+                System.out.println("An error occurred during loan registration: " + e.getMessage());
+            }
+        }
     }
 
     public static void registerEducationalLoan() {
-        // Code related to educational loan registration
-        System.out.println("Registration for Educational Loan completed.");
+        boolean flag = false;
+        while (!flag) {
+            try {
+                flag = getCardInfo();
+                if (flag)
+                    if (registerEducation()) {
+                        Loan educationLoan = Loan.builder()
+                                .loanType(LoanType.EDUCATION)
+                                .student(student)
+                                .amount(educationLoanAmount())
+                                .grade(student.getGrade())
+                                .date(LocalDate.now())
+                                .checkOut(false)
+                                .build();
+
+                        //Set balance
+                        List<Refund> educationRefund = calculateMonthlyInstallments(educationLoanAmount(), educationLoan);
+                        educationLoan.setRefundList(educationRefund);
+                        bankCard.setBalance(educationLoanAmount());
+
+                        // Persist in the database
+                        Loan savedLoan = loanService.saveOrUpdate(educationLoan);
+                        bankCardService.saveOrUpdate(bankCard);
+                        if (savedLoan.getId() != null) {
+                            System.out.println("\n" + savedLoan.getLoanType() + " is now registered for " +
+                                    student.getFirstName() + " " + student.getLastName());
+                        }
+                        // Back to the menu
+                        choinceMenu();
+                    } else {
+                        loginMenu();
+                    }
+                System.out.println("Registration for Educational Loan completed.");
+            } catch (Exception e) {
+                System.out.println("An error occurred during loan registration: " + e.getMessage());
+            }
+        }
     }
+
 
     public static void registerHousingDepositLoan() {
-        // Code related to housing deposit loan registration
-        System.out.println("Registration for Housing Deposit Loan completed.");
+        boolean flag = false;
+        while (!flag) {
+            try {
+                flag = getCardInfo();
+                if (flag)
+                    if (registerEducation() && checkIfValidForHousingLoan()) {
+                        Loan housingLoan = Loan.builder()
+                                .loanType(LoanType.HOUSING)
+                                .student(student)
+                                .amount(housingLoanAmount())
+                                .grade(student.getGrade())
+                                .date(LocalDate.now())
+                                .checkOut(false)
+                                .build();
+
+                        //Set balance
+                        List<Refund> housingRefund = calculateMonthlyInstallments(housingLoanAmount(), housingLoan);
+                        housingLoan.setRefundList(housingRefund);
+                        bankCard.setBalance(housingLoanAmount());
+
+                        // Persist in the database
+                        Loan savedLoan = loanService.saveOrUpdate(housingLoan);
+                        bankCardService.saveOrUpdate(bankCard);
+                        if (savedLoan.getId() != null) {
+                            System.out.println("\n" + savedLoan.getLoanType() + " is now registered for " +
+                                    student.getFirstName() + " " + student.getLastName());
+                        }
+                        // Back to the menu
+                        choinceMenu();
+                    } else {
+                        loginMenu();
+                    }
+                System.out.println("Registration for Housing Loan completed.");
+            } catch (Exception e) {
+                System.out.println("An error occurred during loan registration: " + e.getMessage());
+            }
+        }
     }
 
 
+    //---------------------------------REGISTER LOAN--------------------------------------------
+
+
+    public static Boolean checkIfValidForHousingLoan() {
+        return student.getPartner().getLoanList().stream()
+                .anyMatch(a -> a.getLoanType().equals(LoanType.HOUSING) &&
+                        student.isDorm() == false &&
+                        student.isMarried() == true);
+    }
+
+    public static long housingLoanAmount() {
+        int grade = student.getGrade().ordinal();
+        return switch (grade) {
+            case 0 -> 32000;
+            case 1, 2, 3, 5, 6, 7, 11 -> 26000;
+            default -> 19500;
+        };
+    }
+
+
+    private static boolean getCardInfo() {
+        DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        BankCard bankCard1 = new BankCard();
+
+        System.out.println("Please enter your bank card number (16 digits):");
+        String cardNumber = scanner.nextLine();
+        while (!cardNumber.matches("\\d{16}")) {
+            System.out.println("Invalid card number. Please try again:");
+            cardNumber = scanner.nextLine();
+        }
+        bankCard1.setCardNumber(cardNumber);
+
+
+        System.out.println("Please enter your CVV2 (4 digits):");
+        int cvv2 = scanner.nextInt();
+        while (cvv2 < 1000 || cvv2 > 9999) {
+            System.out.println("Invalid CVV2. Please try again:");
+            cvv2 = scanner.nextInt();
+        }
+        bankCard1.setCvv2(cvv2);
+
+        LocalDate expireDate = null;
+        while (expireDate == null) {
+            System.out.println("Please enter your card's expiration date (yyyy-MM-dd):");
+            String input = scanner.next();
+            try {
+                expireDate = LocalDate.parse(input, DATE_FORMATTER);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please try again using the format yyyy-MM-dd:");
+            }
+        }
+        bankCard1.setExpireDate(expireDate);
+
+
+        if (bankCard1.getCardNumber().equals(student.getBankCard().getCardNumber()) &&
+                bankCard1.getCvv2() == student.getBankCard().getCvv2() &&
+                bankCard1.getExpireDate().equals(student.getBankCard().getExpireDate())) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public static boolean registerEducation() {
+
+        LocalDate currentDate = LocalDate.now();
+        LocalDate firstSemesterStart = LocalDate.of(currentDate.getYear(), Month.MARCH, 1);
+        LocalDate firstSemesterEnd = LocalDate.of(currentDate.getYear(), Month.AUGUST, 31);
+        LocalDate secondSemesterStart = LocalDate.of(currentDate.getYear(), Month.SEPTEMBER, 1);
+        LocalDate secondSemesterEnd = LocalDate.of(currentDate.getYear(), Month.FEBRUARY, 28);
+
+        //check if graduated!
+        if (isGraduated()) {
+            //check if in window of registaring loan
+            if (checkLoanRegistrationWindow()) {
+                //check if not in semester
+                if (hasStudentTakenLoanThisSemester(firstSemesterStart, firstSemesterEnd) && hasStudentTakenLoanThisSemester(secondSemesterStart, secondSemesterEnd)) {
+                    return true;
+                } else {
+                    System.out.println("You have been taken loan before in this semester");
+                }
+            } else {
+                System.out.println("Your not in the right registration window !");
+            }
+        } else {
+            System.out.println("You are graduated and caanot apply for any loan !");
+            refundMenu();
+        }
+        return false;
+    }
+
+    //--------------------------------REGISTER LOAN METHODS------------------------------------
+
+
+    public static boolean checkLoanRegistrationWindow() {
+        // تاریخ فعلی
+        LocalDate currentDate = LocalDate.now();
+
+        // تاریخ‌های مشخص شده برای آبان
+        LocalDate startAban = LocalDate.of(currentDate.getYear(), Month.NOVEMBER, 1);
+        LocalDate endAban = startAban.plusWeeks(1);
+
+        // تاریخ‌های مشخص شده برای بهمن
+        LocalDate startBahman = LocalDate.of(currentDate.getYear(), Month.FEBRUARY, 25);
+        LocalDate endBahman = startBahman.plusWeeks(1);
+
+        // بررسی آیا در دوره‌ی ثبت نام قرار داریم
+        if (!currentDate.isBefore(startAban) && !currentDate.isAfter(endAban)) {
+            return true;
+        } else return !currentDate.isBefore(startBahman) && !currentDate.isAfter(endBahman);
+    }
+
+    public static List<Refund> calculateMonthlyInstallments(double loanAmount, Loan loan) {
+        final double ANNUAL_INTEREST_RATE = 0.04; // Annual interest rate (4%)
+        final int LOAN_PERIOD_YEARS = 5; // Loan period (5 years)
+        final int TOTAL_INSTALLMENTS = 60; // Total number of installments
+        List<Refund> list = new ArrayList<>();
+        double baseInstallment = loanAmount / TOTAL_INSTALLMENTS; // Base monthly installment
+        LocalDate lcd = LocalDate.now();
+
+        for (int year = 1; year <= LOAN_PERIOD_YEARS; year++) {
+            double installmentMultiplier = Math.pow(2, year - 1); // Step-up multiplier for each year
+            double installment = baseInstallment * installmentMultiplier; // Adjusted monthly installment
+            double interest = installment * ANNUAL_INTEREST_RATE / 12; // Monthly interest
+            double totalMonthlyInstallment = installment + interest;// Total monthly installment with interest
+            for (int i = 0; i < 12; i++) {
+                lcd = lcd.plusMonths(1);
+                list.add(Refund.builder().
+                        refundNum(i + 1)
+                        .date(lcd)
+                        .loan(loan)
+                        .price(totalMonthlyInstallment)
+                        .checkout(false)
+                        .build()
+                );
+            }
+            lcd = lcd.plusYears(1);
+        }
+        return list;
+    }
+
+    public static long educationLoanAmount() {
+        int grade = student.getGrade().ordinal();
+        return switch (grade) {
+            case 0, 1, 2 -> 1900;
+            case 4, 5, 6, 7 -> 2250;
+            case 8 -> 2600;
+            default -> throw new IllegalStateException("Unexpected value: " + grade);
+        };
+    }
+
+    public static long tuituinLoanAmount() {
+        int grade = student.getGrade().ordinal();
+        return switch (grade) {
+            case 0, 1, 2 -> 1300;
+            case 4, 5, 6, 7 -> 2600;
+            case 8 -> 6500;
+            default -> throw new IllegalStateException("Unexpected value: " + grade);
+        };
+    }
+
+    public static boolean isGraduated() {
+        LocalDate localDateNow = LocalDate.now();
+        LocalDate studentDate = student.getEnteryDate();
+
+        int grade = student.getGrade().ordinal();
+        int yearsPassed = localDateNow.getYear() - studentDate.getYear();
+
+        int requiredYears = switch (grade) {
+            case 0, 4 -> 2;
+            case 1 -> 4;
+            case 3 -> 6;
+            case 5, 6, 7 -> 5;
+            default -> 0;
+        };
+        return yearsPassed >= requiredYears;
+    }
+
+    public static boolean hasStudentTakenLoanThisSemester(LocalDate semesterStart, LocalDate semesterEnd) {
+        for (Loan loan : student.getLoanList()) {
+            if (!loan.getDate().isBefore(semesterStart) && !loan.getDate().isAfter(semesterEnd)) {
+                //TODO if loan registered in semester of Year this will return false
+                return false;
+            }
+        }
+        return true;
+    }
     //-----------------------------REFUND MENU ------------------------------------
 
-    private void refundMenu() {
+    private static void refundMenu() {
         System.out.printf("Greeting's %s %s Nice To See You Again ! --------------", student.getFirstName(), student.getLastName());
+
+        System.out.println("Your Loans:");
+        student.getLoanList().forEach(loan -> System.out.printf("ID: %d - Type: %s%n", loan.getId(), loan.getLoanType()));
+
+
+        System.out.print("Please enter the ID of the loan you want to make a payment for: ");
+        long loanId = scanner.nextLong();
+
+        Loan selectedLoan = student.getLoanList().stream()
+                .filter(loan1 -> loan1.getId() == loanId)
+                .findFirst()
+                .orElse(null);
+
+        if (selectedLoan != null) {
+            displayRefundMenu(selectedLoan);
+        } else {
+            System.out.println("Procedding to payment for loan ID: " + loanId + " not found !");
+            refundMenu();
+        }
+
 
     }
 
+    private static void displayRefundMenu(Loan selectedLoan) {
+        while (true) {
+            try {
+                System.out.println("\nWelcome back! Please choose an option:");
+                System.out.println("1. View Paid Installments");
+                System.out.println("2. View Unpaid Installments");
+                System.out.println("3. Make a Payment");
+                System.out.println("4. Exit");
+                System.out.print("Enter your choice (1/2/3/4): ");
+
+                int choice = scanner.nextInt();
+                switch (choice) {
+                    case 1:
+                        showPaidInstallments(selectedLoan);
+                        break;
+                    case 2:
+                        showUnpaidInstallments(selectedLoan);
+                        break;
+                    case 3:
+                        makePayment(selectedLoan);
+                        break;
+                    case 4:
+                        choinceMenu();
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please select 1, 2, or 3.");
+                        break;
+                }
+            } catch (InputMismatchException inputMismatchException) {
+                inputMismatchException.getMessage();
+            } catch (NotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private static void showPaidInstallments(Loan selectedLoan) {
+        System.out.println("Paid Installments for Loan Type: " + selectedLoan.getLoanType());
+        selectedLoan.getRefundList().stream()
+                .filter(refund1 -> !refund1.isCheckout()) // فیلتر کردن بر اساس وضعیت پرداخت شده
+                .forEach(refund -> {
+                    System.out.printf("Date: %s, Amount: %d%n", refund.getDate(), refund.getPrice().intValue());
+                });
+        displayRefundMenu(selectedLoan);
+    }
+
+    private static void showUnpaidInstallments(Loan selectedLoan) {
+        System.out.println("UnPaid Installments for Loan Type: " + selectedLoan.getLoanType());
+        selectedLoan.getRefundList().stream()
+                .filter(Refund::isCheckout) // فیلتر کردن بر اساس وضعیت پرداخت نشده
+                .forEach(refund -> {
+                    System.out.printf("Date: %s, Amount: %d%n", refund.getDate(), refund.getPrice().intValue());
+                });
+        displayRefundMenu(selectedLoan);
+    }
+
+    private static void makePayment(Loan selectedLoan) throws NotFoundException {
+        System.out.println("UnPaid Installments for Loan Type: " + selectedLoan.getLoanType());
+        selectedLoan.getRefundList().stream()
+                .filter(Refund::isCheckout) // فیلتر کردن بر اساس وضعیت پرداخت نشده
+                .forEach(refund -> {
+                    System.out.printf("ID %s - > Date: %s, Amount: %d%n", refund.getId(), refund.getDate(), refund.getPrice().intValue());
+                });
+
+        System.out.println("Choose to refund loan:");
+        Long refundId = scanner.nextLong();
+
+        Refund refund = refundService.findById(refundId);
+        if (refund != null) {
+            refund.setCheckout(true);
+            refundService.saveOrUpdate(refund);
+            System.out.println("Refund with ID: " + refundId + " has been marked as checked.");
+        } else {
+            System.out.println("Refund with ID: " + refundId + " not found.");
+        }
+        displayRefundMenu(selectedLoan);
+    }
+
+
+    // Main method to run the menu
+
+
+
+
     //-----------------------------SIGN UP METHOD------------------------------------
-    public void studentSignUp() throws InterruptedException {
+    public static void studentSignUp() throws InterruptedException {
 
         City selectedCity = null;
         LocalDate date = null;
@@ -330,7 +748,7 @@ public class Menu {
             }
         } catch (DataException e) {
             // Handle database access errors
-            e.getErrorMessage();
+            e.getMessage();
             throw new ServiceException("Unable to save student information.", e);
         } catch (Exception e) {
             // Handle other exceptions
@@ -404,7 +822,7 @@ public class Menu {
     }
 
 
-    public BankCard getBankCardInfoFromUser() {
+    public static BankCard getBankCardInfoFromUser() {
         DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         Scanner scanner = new Scanner(System.in);
         BankCard bankCard = new BankCard();

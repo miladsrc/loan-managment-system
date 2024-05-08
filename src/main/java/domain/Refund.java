@@ -6,10 +6,8 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.SoftDelete;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 @Entity
@@ -49,7 +47,7 @@ public class Refund extends BaseEntity<Long> {
 
     @Builder
     public Refund(Long aLong, int refundNum, Loan loan, Double price, LocalDate date, boolean checkout) {
-        super ( aLong );
+        super(aLong);
         this.refundNum = refundNum;
         this.loan = loan;
         this.price = price;

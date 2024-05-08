@@ -30,7 +30,7 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity<ID>, ID extends Se
         if (entity.getId () == null) {
             session.persist ( entity );
         } else {
-            entity = session.merge ( entity );
+            entity = (T) session.merge ( entity );
         }
         return entity;
     }
