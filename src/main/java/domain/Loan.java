@@ -29,7 +29,7 @@ public class Loan extends BaseEntity<Long> {
     @NotNull
     LoanType loanType;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "student_id")
     @NotNull
     Student student;
@@ -49,7 +49,7 @@ public class Loan extends BaseEntity<Long> {
     @ColumnDefault ( "false" )
     boolean checkOut;
 
-    @OneToMany(mappedBy="loan",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="loan",fetch = FetchType.EAGER)
     List<Refund> refundList=new ArrayList<> ();
 
 

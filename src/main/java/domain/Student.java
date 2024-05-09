@@ -91,10 +91,10 @@ public class Student extends BaseEntity<Long> {
     @Column
     String password;
 
-    @OneToOne(mappedBy ="student", cascade = CascadeType.ALL )
+    @OneToOne(mappedBy ="student", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     BankCard bankCard;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<Loan> loanList=new ArrayList<> ();
 
 

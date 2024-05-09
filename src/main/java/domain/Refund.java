@@ -28,7 +28,7 @@ public class Refund extends BaseEntity<Long> {
     int refundNum;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "loan_id")
     Loan loan;
 

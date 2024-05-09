@@ -86,7 +86,6 @@ public class Menu {
                 e.printStackTrace();
             }
         }
-
         choinceMenu();
     }
 
@@ -137,17 +136,19 @@ public class Menu {
 
     }
 
+    //REGESTER LOAN LOGIC
     public static void registerTuitionLoan() {
 
         if (student.getTypeUniversity().equals(TypeUniversity.DOLATI)) {
             System.out.println("This tuition can't be applyied by you because of Dolati uni !");
             choinceMenu();
         }
+
         boolean flag = false;
         while (!flag) {
             try {
                 flag = getCardInfo();
-                if (flag)
+                if (flag) {
                     if (registerEducation()) {
                         Loan tuitionLoan = Loan.builder()
                                 .loanType(LoanType.TUITION)
@@ -176,6 +177,7 @@ public class Menu {
                         System.out.println("youre graduated !");
                         loginMenu();
                     }
+                }
                 System.out.println("Registration for Tuition Loan completed.");
             } catch (Exception e) {
                 System.out.println("An error occurred during loan registration: " + e.getMessage());
