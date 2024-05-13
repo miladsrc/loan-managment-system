@@ -21,8 +21,8 @@ import java.util.List;
 @Entity
 @SoftDelete
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cacheable
+//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Student extends BaseEntity<Long> {
 
     @Size(min = 2, max = 50)
@@ -60,7 +60,7 @@ public class Student extends BaseEntity<Long> {
     boolean isMarried;
 
     @OneToOne
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     Student partner;
 
     @Temporal(TemporalType.DATE)
@@ -93,11 +93,11 @@ public class Student extends BaseEntity<Long> {
     String password;
 
     @OneToOne(mappedBy ="student", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     BankCard bankCard;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     List<Loan> loanList=new ArrayList<> ();
 
 

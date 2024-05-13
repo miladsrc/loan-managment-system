@@ -8,12 +8,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.SoftDelete;
 
-import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -21,8 +21,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @SoftDelete(columnName = "isDelete")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cacheable
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class BankCard extends BaseEntity<Long> {
 
     @NotNull
@@ -30,7 +30,7 @@ public class BankCard extends BaseEntity<Long> {
     Bank bank;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     Student student;
 
     @NotNull
@@ -64,4 +64,28 @@ public class BankCard extends BaseEntity<Long> {
         this.balance = balance;
     }
 
+    @Override
+    public String toString() {
+        return "BankCard{" +
+                "bank=" + bank +
+                ", student=" + student.getId() +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", cvv2=" + cvv2 +
+                ", expireDate=" + expireDate +
+                ", balance=" + balance +
+                ", id=" + id +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BankCard bankCard)) return false;
+        return cvv2 == bankCard.cvv2 && balance == bankCard.balance && bank == bankCard.bank && Objects.equals(student, bankCard.student) && Objects.equals(cardNumber, bankCard.cardNumber) && Objects.equals(expireDate, bankCard.expireDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bank, student, cardNumber, cvv2, expireDate, balance);
+    }
 }

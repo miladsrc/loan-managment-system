@@ -18,8 +18,8 @@ import java.time.LocalDate;
 @ToString
 @SoftDelete
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cacheable
+//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Refund extends BaseEntity<Long> {
 
     @NotNull
@@ -29,7 +29,7 @@ public class Refund extends BaseEntity<Long> {
 
     @NotNull
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinColumn(name = "loan_id")
     Loan loan;
 
