@@ -29,6 +29,7 @@ public class Refund extends BaseEntity<Long> {
 
     @NotNull
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinColumn(name = "loan_id")
     Loan loan;
 

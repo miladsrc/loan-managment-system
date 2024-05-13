@@ -20,5 +20,15 @@
       <user-name>postgres</user-name>
       <schema-mapping />
     </data-source>
+    <data-source name="hibernate.cfg.xml/Hibernate" uuid="3ba8ed2b-a2e6-4a1e-b735-7f100476191f">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="POSTGRES" exact-version="0" />
+      <user-name>postgres</user-name>
+      <schema-mapping />
+    </data-source>
+    <data-source name="hibernate.cfg.xml/Hibernate" uuid="d6dc6e6a-86ed-47a1-bf1c-68c7d4d54e03">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="POSTGRES" exact-version="0" />
+      <user-name>postgres</user-name>
+      <schema-mapping />
+    </data-source>
   </component>
 </project>

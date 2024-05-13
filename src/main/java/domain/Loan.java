@@ -29,6 +29,7 @@ public class Loan extends BaseEntity<Long> {
     @NotNull
     LoanType loanType;
 
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "student_id")
     @NotNull
@@ -50,6 +51,7 @@ public class Loan extends BaseEntity<Long> {
     boolean checkOut;
 
     @OneToMany(mappedBy="loan",fetch = FetchType.EAGER)
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     List<Refund> refundList=new ArrayList<> ();
 
 

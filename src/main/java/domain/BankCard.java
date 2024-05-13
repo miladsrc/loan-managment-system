@@ -30,6 +30,7 @@ public class BankCard extends BaseEntity<Long> {
     Bank bank;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     Student student;
 
     @NotNull

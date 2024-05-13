@@ -121,17 +121,10 @@ public class Menu {
         int loanType = scanner.nextInt();
 
         switch (loanType) {
-            case 1:
-                registerTuitionLoan();
-                break;
-            case 2:
-                registerEducationalLoan();
-                break;
-            case 3:
-                registerHousingDepositLoan();
-                break;
-            default:
-                System.out.println("Invalid choice.");
+            case 1 -> registerTuitionLoan();
+            case 2 -> registerEducationalLoan();
+            case 3 -> registerHousingDepositLoan();
+            default -> System.out.println("Invalid choice.");
         }
 
     }
@@ -273,8 +266,8 @@ public class Menu {
     public static Boolean checkIfValidForHousingLoan() {
         return student.getPartner().getLoanList().stream()
                 .anyMatch(a -> a.getLoanType().equals(LoanType.HOUSING) &&
-                        student.isDorm() == false &&
-                        student.isMarried() == true);
+                        !student.isDorm() &&
+                        student.isMarried());
     }
 
     public static long housingLoanAmount() {
@@ -285,7 +278,6 @@ public class Menu {
             default -> 19500;
         };
     }
-
 
     private static boolean getCardInfo() {
         DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -321,13 +313,9 @@ public class Menu {
         bankCard1.setExpireDate(expireDate);
 
 
-        if (bankCard1.getCardNumber().equals(student.getBankCard().getCardNumber()) &&
+        return bankCard1.getCardNumber().equals(student.getBankCard().getCardNumber()) &&
                 bankCard1.getCvv2() == student.getBankCard().getCvv2() &&
-                bankCard1.getExpireDate().equals(student.getBankCard().getExpireDate())) {
-            return true;
-        } else {
-            return false;
-        }
+                bankCard1.getExpireDate().equals(student.getBankCard().getExpireDate());
 
     }
 
@@ -494,21 +482,11 @@ public class Menu {
 
                 int choice = scanner.nextInt();
                 switch (choice) {
-                    case 1:
-                        showPaidInstallments(selectedLoan);
-                        break;
-                    case 2:
-                        showUnpaidInstallments(selectedLoan);
-                        break;
-                    case 3:
-                        makePayment(selectedLoan);
-                        break;
-                    case 4:
-                        choinceMenu();
-                        break;
-                    default:
-                        System.out.println("Invalid choice. Please select 1, 2, or 3.");
-                        break;
+                    case 1 -> showPaidInstallments(selectedLoan);
+                    case 2 -> showUnpaidInstallments(selectedLoan);
+                    case 3 -> makePayment(selectedLoan);
+                    case 4 -> choinceMenu();
+                    default -> System.out.println("Invalid choice. Please select 1, 2, or 3.");
                 }
             } catch (InputMismatchException inputMismatchException) {
                 inputMismatchException.getMessage();
@@ -522,9 +500,7 @@ public class Menu {
         System.out.println("Paid Installments for Loan Type: " + selectedLoan.getLoanType());
         selectedLoan.getRefundList().stream()
                 .filter(refund1 -> !refund1.isCheckout()) // فیلتر کردن بر اساس وضعیت پرداخت شده
-                .forEach(refund -> {
-                    System.out.printf("Date: %s, Amount: %d%n", refund.getDate(), refund.getPrice().intValue());
-                });
+                .forEach(refund -> System.out.printf("Date: %s, Amount: %d%n", refund.getDate(), refund.getPrice().intValue()));
         displayRefundMenu(selectedLoan);
     }
 
@@ -532,9 +508,7 @@ public class Menu {
         System.out.println("UnPaid Installments for Loan Type: " + selectedLoan.getLoanType());
         selectedLoan.getRefundList().stream()
                 .filter(Refund::isCheckout) // فیلتر کردن بر اساس وضعیت پرداخت نشده
-                .forEach(refund -> {
-                    System.out.printf("Date: %s, Amount: %d%n", refund.getDate(), refund.getPrice().intValue());
-                });
+                .forEach(refund -> System.out.printf("Date: %s, Amount: %d%n", refund.getDate(), refund.getPrice().intValue()));
         displayRefundMenu(selectedLoan);
     }
 
@@ -542,9 +516,7 @@ public class Menu {
         System.out.println("UnPaid Installments for Loan Type: " + selectedLoan.getLoanType());
         selectedLoan.getRefundList().stream()
                 .filter(Refund::isCheckout) // فیلتر کردن بر اساس وضعیت پرداخت نشده
-                .forEach(refund -> {
-                    System.out.printf("ID %s - > Date: %s, Amount: %d%n", refund.getId(), refund.getDate(), refund.getPrice().intValue());
-                });
+                .forEach(refund -> System.out.printf("ID %s - > Date: %s, Amount: %d%n", refund.getId(), refund.getDate(), refund.getPrice().intValue()));
 
         System.out.println("Choose to refund loan:");
         Long refundId = scanner.nextLong();

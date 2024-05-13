@@ -20,14 +20,10 @@ class StudentRepositoryImplTest {
     }
 
 
-
-
     @Test
-    public void test(){
-        // Assuming ApplicationContext.getStudentService() returns an instance of StudentService
+    public void test() {
         StudentService studentService = ApplicationContext.getStudentService();
 
-        // Replace "1" with actual national code and password for testing
         String nationalCode = "1";
         String password = "1";
 
@@ -37,10 +33,9 @@ class StudentRepositoryImplTest {
             System.out.println("Student found:");
             System.out.println("Name: " + student.getFirstName() + " " + student.getLastName());
             System.out.println("Student Number: " + student.getStudentNumber());
-            // Print other relevant information as needed
         } else {
             System.out.println("Student not found. Please check the provided credentials.");
         }
     }
 
-    }
+}

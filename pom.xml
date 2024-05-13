@@ -85,10 +85,50 @@
            <artifactId>hibernate-core</artifactId>
            <version>6.4.4.Final</version>
        </dependency>
+
        <dependency>
            <groupId>org.junit.jupiter</groupId>
            <artifactId>junit-jupiter</artifactId>
            <version>RELEASE</version>
+           <scope>test</scope>
+       </dependency>
+
+
+
+       <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-ehcache -->
+       <dependency>
+           <groupId>org.hibernate</groupId>
+           <artifactId>hibernate-ehcache</artifactId>
+           <version>5.6.15.Final</version>
+       </dependency>
+
+       <!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache-core -->
+       <dependency>
+           <groupId>net.sf.ehcache</groupId>
+           <artifactId>ehcache-core</artifactId>
+           <version>2.6.11</version>
+       </dependency>
+
+       <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+       <dependency>
+           <groupId>org.apache.logging.log4j</groupId>
+           <artifactId>log4j-api</artifactId>
+           <version>2.23.1</version>
+       </dependency>
+
+       <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+       <dependency>
+           <groupId>org.slf4j</groupId>
+           <artifactId>slf4j-api</artifactId>
+           <version>2.0.13</version>
+       </dependency>
+
+       <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
+       <dependency>
+           <groupId>org.slf4j</groupId>
+           <artifactId>slf4j-log4j12</artifactId>
+           <version>2.0.13</version>
+           <type>pom</type>
            <scope>test</scope>
        </dependency>
 
