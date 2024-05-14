@@ -41,11 +41,11 @@ public class Student extends BaseEntity<Long> {
     @Column(length = 50)
     String motherName;
 
-//    @Pattern(regexp = "\\d{10}")
+    @Pattern(regexp = "\\d{10}")
     @Column(length = 10)
     String nationalCode;
 
-//    @Pattern(regexp = "\\d{11}")
+    @Pattern(regexp = "\\d{10}")
     @Column(length = 11)
     String phoneNumber;
 
