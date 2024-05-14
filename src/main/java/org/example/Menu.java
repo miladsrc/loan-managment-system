@@ -17,6 +17,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
+import static java.lang.Thread.*;
+
 
 public class Menu {
 
@@ -74,7 +76,7 @@ public class Menu {
                 String passwordOfPartner = scanner.next();
 
                 student = studentService.getStudentByNationalCodeAndPassword(nationalCodePartner, passwordOfPartner);
-                Thread.sleep(1000);
+                sleep(1000);
                 bankCard = student.getBankCard();
 
 
@@ -281,9 +283,7 @@ public class Menu {
     public Boolean checkIfValidForHousingLoan() {
         if (student.getPartner().getLoanList().stream().anyMatch(loan -> !loan.getLoanType().equals(LoanType.HOUSING))) {
             if (!student.isDorm() && student.isMarried()) {
-                if (student.getLoanList().stream().anyMatch(loan -> !loan.getLoanType().equals(LoanType.HOUSING))) {
-                    return true;
-                }
+                return student.getLoanList().stream().anyMatch(loan -> !loan.getLoanType().equals(LoanType.HOUSING));
             }
         }
         return false;
@@ -294,9 +294,7 @@ public class Menu {
         return switch (grade) {
             case 0 -> 32000;
             case 1, 2, 3, 5, 6, 7, 11 -> 26000;
-            default -> {
-                yield 19500;
-            }
+            default -> 19500;
         };
     }
 
@@ -379,12 +377,12 @@ public class Menu {
 
 
     public boolean checkLoanRegistrationWindow() {
-        /**
-         * In this method
-         * 1->get current date
-         * 2->get choosen deadline
-         * 3->check the specified dates
-         * 4->return boolean
+        /*
+          In this method
+          1->get current date
+          2->get choosen deadline
+          3->check the specified dates
+          4->return boolean
          */
         LocalDate currentDate = LocalDate.now();
 
@@ -533,7 +531,7 @@ public class Menu {
     private void showPaidInstallments(Loan selectedLoan) {
         System.out.println("Paid Installments for Loan Type: " + selectedLoan.getLoanType());
         selectedLoan.getRefundList().stream()
-                .filter(refund1 -> refund1.isCheckout()) // فیلتر کردن بر اساس وضعیت پرداخت شده
+                .filter(Refund::isCheckout) // فیلتر کردن بر اساس وضعیت پرداخت شده
                 .forEach(refund -> System.out.printf("NO:%s  ---> date : %s, amount : %d%n", refund.getRefundNum(), refund.getDate(), refund.getPrice().intValue()));
         displayRefundMenu(selectedLoan);
     }
@@ -750,11 +748,11 @@ public class Menu {
         try {
             // Save student information
             studentService.saveOrUpdate(student1);
-            Thread.sleep(1000);
+            sleep(1000);
             // Associate bank card with student and save
             bankCard.setStudent(student1);
             bankCardService.saveOrUpdate(bankCard);
-            Thread.sleep(1000);
+            sleep(1000);
             // Update partner information if married
             if (isMarried) {
                 partner.setMarried(true);
