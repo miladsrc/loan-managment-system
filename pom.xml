@@ -86,7 +86,15 @@
 
        <!--- Testing echace -->
 
-<!--       &lt;!&ndash; https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api &ndash;&gt;-->
+       <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-ehcache -->
+       <dependency>
+           <groupId>org.hibernate</groupId>
+           <artifactId>hibernate-ehcache</artifactId>
+           <version>5.6.9.Final</version>
+       </dependency>
+
+
+       <!--       &lt;!&ndash; https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api &ndash;&gt;-->
 <!--       <dependency>-->
 <!--           <groupId>jakarta.xml.bind</groupId>-->
 <!--           <artifactId>jakarta.xml.bind-api</artifactId>-->
