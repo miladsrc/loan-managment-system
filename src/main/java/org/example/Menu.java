@@ -8,6 +8,8 @@ import logic.service.RefundService;
 import logic.service.StudentService;
 import org.hibernate.exception.DataException;
 import org.hibernate.service.spi.ServiceException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import util.ApplicationContext;
 
 import java.time.DateTimeException;
@@ -24,6 +26,8 @@ public class Menu {
 
 
     Scanner scanner = new Scanner(System.in);
+    private static final Logger logger = LoggerFactory.getLogger(Menu.class);
+    static final NotFoundException throwable = new NotFoundException("Not found ! ");
 
 
     BankCardService bankCardService = ApplicationContext.getBankCardService();
@@ -38,6 +42,7 @@ public class Menu {
 
 
     public void startMenu() {
+        logger.info("Reading start Menu !");
         boolean flag = true;
         while (flag) {
             try {
@@ -56,11 +61,14 @@ public class Menu {
                     default -> System.out.println("Invalid choice. Please select 1 or 2 or 3.");
                 }
             } catch (InputMismatchException e) {
+                logger.error("Error log message", throwable);
                 System.out.println("Invalid input. Please enter a valid choice.");
                 scanner.nextLine();
             } catch (InterruptedException e) {
+                logger.error("Error log message", throwable);
                 throw new RuntimeException(e);
             }
+            logger.info("Finish reading Main !");
         }
     }
 
@@ -81,10 +89,12 @@ public class Menu {
 
 
             } catch (InputMismatchException e) {
+                logger.error("Error log message", throwable);
                 System.out.println("Invalid input. Please enter valid values.");
                 scanner.nextLine();
             } catch (Exception e) {
                 System.out.println("An unexpected error occurred. Please try again later.");
+                logger.error("Error log message", throwable);
                 e.printStackTrace();
             }
         }
@@ -178,6 +188,7 @@ public class Menu {
                     }
                 }
             } catch (Exception e) {
+                logger.error("Error log message", throwable);
                 System.out.println("An error occurred during loan registration: " + e.getMessage());
             }
         }
@@ -220,6 +231,7 @@ public class Menu {
                         loginMenu();
                     }
             } catch (Exception e) {
+                logger.error("Error log message", throwable);
                 System.out.println("An error occurred during loan registration: " + e.getMessage());
             }
         }
@@ -271,6 +283,7 @@ public class Menu {
                 }
 
             } catch (Exception e) {
+                logger.error("Error log message", throwable);
                 System.out.println("An error occurred during loan registration: " + e.getMessage());
             }
         }
@@ -283,10 +296,11 @@ public class Menu {
     public Boolean checkIfValidForHousingLoan() {
         if (student.getPartner().getLoanList().stream().anyMatch(loan -> !loan.getLoanType().equals(LoanType.HOUSING))) {
             if (!student.isDorm() && student.isMarried()) {
-                return student.getLoanList().stream().anyMatch(loan -> !loan.getLoanType().equals(LoanType.HOUSING));
+//                return student.getLoanList().stream().anyMatch(loan -> !loan.getLoanType().equals(LoanType.HOUSING));
+                return true;
             }
         }
-        return false;
+        return true;
     }
 
     public long housingLoanAmount() {
@@ -336,6 +350,7 @@ public class Menu {
             }
             bankCard1.setExpireDate(expireDate);
         } catch (Exception e) {
+            logger.error("Error log message", throwable);
             e.printStackTrace();
         }
 
@@ -384,17 +399,18 @@ public class Menu {
           3->check the specified dates
           4->return boolean
          */
-        LocalDate currentDate = LocalDate.now();
-
-        LocalDate startAban = LocalDate.of(currentDate.getYear(), Month.NOVEMBER, 1);
-        LocalDate endAban = startAban.plusWeeks(1);
-
-        LocalDate startBahman = LocalDate.of(currentDate.getYear(), Month.FEBRUARY, 25);
-        LocalDate endBahman = startBahman.plusWeeks(1);
-
-        if (!currentDate.isBefore(startAban) && !currentDate.isAfter(endAban)) {
-            return true;
-        } else return !currentDate.isBefore(startBahman) && !currentDate.isAfter(endBahman);
+//        LocalDate currentDate = LocalDate.now();
+//
+//        LocalDate startAban = LocalDate.of(currentDate.getYear(), Month.NOVEMBER, 1);
+//        LocalDate endAban = startAban.plusWeeks(1);
+//
+//        LocalDate startBahman = LocalDate.of(currentDate.getYear(), Month.FEBRUARY, 25);
+//        LocalDate endBahman = startBahman.plusWeeks(1);
+//
+//        if (!currentDate.isBefore(startAban) && !currentDate.isAfter(endAban)) {
+//            return true;
+//        } else return !currentDate.isBefore(startBahman) && !currentDate.isAfter(endBahman);
+        return true;
     }
 
     public List<Refund> calculateMonthlyInstallments(double loanAmount, Loan loan) {
@@ -521,8 +537,10 @@ public class Menu {
                     default -> System.out.println("Invalid choice. Please select 1, 2, or 3.");
                 }
             } catch (InputMismatchException inputMismatchException) {
+                logger.error("Error log message", throwable);
                 inputMismatchException.getMessage();
             } catch (NotFoundException e) {
+                logger.error("Error log message", throwable);
                 throw new RuntimeException(e);
             }
         }
@@ -564,9 +582,11 @@ public class Menu {
                 System.out.println("Refund with ID: " + refundId + " not found.");
             }
         } catch (InputMismatchException ime) {
+            logger.error("Error log message", throwable);
             System.out.println("Error: Invalid input. Please enter a valid number for the refund ID.");
             scanner.nextLine(); // to clear the buffer
         } catch (Exception e) {
+            logger.error("Error log message", throwable);
             System.out.println("An unexpected error occurred: " + e.getMessage());
         } finally {
             displayRefundMenu(selectedLoan);
@@ -617,6 +637,7 @@ public class Menu {
                     System.out.println("Invalid selection. Please enter a number between 1 and " + TypeUniversity.values().length);
                 }
             } catch (InputMismatchException e) {
+                logger.error("Error log message", throwable);
                 System.out.println("Invalid input. Please enter a numerical value.");
                 scanner.next(); // Clear the invalid input
             }
@@ -633,6 +654,7 @@ public class Menu {
                 System.out.println("Entry date is: " + date);
 
             } catch (DateTimeException e) {
+                logger.error("Error log message", throwable);
                 System.out.println("The date entered is not valid. Please try again using the format yyyy-mm-dd.");
             }
         }
@@ -657,6 +679,7 @@ public class Menu {
                     System.out.println("Invalid selection. Please enter a number between 1 and " + Grade.values().length);
                 }
             } catch (InputMismatchException e) {
+                logger.error("Error log message", throwable);
                 System.out.println("Invalid input. Please enter a numerical value.");
                 scanner.next(); // Clear the invalid input
             }
@@ -704,6 +727,7 @@ public class Menu {
                 isMarried = partner != null && partner.getPartner() == null;
             }
         } catch (Exception e) {
+            logger.error("Error log message", throwable);
             System.out.println("An error occurred while processing the information. Please try again.");
             e.printStackTrace();
         }
@@ -761,10 +785,12 @@ public class Menu {
             }
         } catch (DataException e) {
             // Handle database access errors
+            logger.error("Error log message", throwable);
             e.getMessage();
             throw new ServiceException("Unable to save student information.", e);
         } catch (Exception e) {
             // Handle other exceptions
+            logger.error("Error log message", throwable);
             e.printStackTrace();
             throw new ServiceException("An unexpected error occurred while saving data.", e);
         }

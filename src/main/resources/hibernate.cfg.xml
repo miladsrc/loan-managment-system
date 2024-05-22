@@ -11,13 +11,6 @@
         <property name="hbm2ddl.auto">update</property>
         <property name="format_sql">true</property>
 
-<!--        -->
-<!--        <property name="hibernate.cache.use_second_level_cache">true</property>-->
-<!--        <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>-->
-<!--        <mapping class="domain.Student"/>-->
-<!--        <mapping class="domain.BankCard"/>-->
-<!--        <mapping class="domain.Refund"/>-->
-<!--        <mapping class="domain.Loan"/>-->
     </session-factory>
     
     
