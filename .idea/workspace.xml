@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa6d01a9-5768-4f58-ad9b-0cbaea3976e5" name="Changes" comment="/*2">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
-    </list>
+    <list default="true" id="fa6d01a9-5768-4f58-ad9b-0cbaea3976e5" name="Changes" comment="/*3" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -162,7 +155,7 @@
       <workItem from="1716305913289" duration="12000" />
       <workItem from="1716319535558" duration="4288000" />
       <workItem from="1716363762622" duration="718000" />
-      <workItem from="1716383107518" duration="8821000" />
+      <workItem from="1716383107518" duration="9325000" />
     </task>
     <task id="LOCAL-00001" summary="ALLLLLLLLLLLLLLLLfu..kin changes!!!">
       <option name="closed" value="true" />
@@ -284,7 +277,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715695976059</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="/*3">
+      <option name="closed" value="true" />
+      <created>1716410907544</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1716410907544</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -319,7 +320,8 @@
     <MESSAGE value="#13- Delom gira be in Aaaaasemaaaan...&#10;ehcache last try" />
     <MESSAGE value="/*" />
     <MESSAGE value="/*2" />
-    <option name="LAST_COMMIT_MESSAGE" value="/*2" />
+    <MESSAGE value="/*3" />
+    <option name="LAST_COMMIT_MESSAGE" value="/*3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

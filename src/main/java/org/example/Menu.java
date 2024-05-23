@@ -294,11 +294,22 @@ public class Menu {
 
 
     public Boolean checkIfValidForHousingLoan() {
-        if (student.getPartner().getLoanList().stream().anyMatch(loan -> !loan.getLoanType().equals(LoanType.HOUSING))) {
-            if (!student.isDorm() && student.isMarried()) {
-//                return student.getLoanList().stream().anyMatch(loan -> !loan.getLoanType().equals(LoanType.HOUSING));
-                return true;
+        if (!(student.getPartner()
+                .getLoanList().stream()
+                .anyMatch(loan -> loan.getLoanType().equals(LoanType.HOUSING)) &&
+                student.getLoanList().stream()
+                        .anyMatch(loan -> loan.getLoanType().equals(LoanType.HOUSING)))){
+            if (!student.isDorm()) {
+                if (student.isMarried()) {
+                    return true;
+                } else {
+                    System.out.println("YOU ARE NOT MARRID !");
+                }
+            } else {
+                System.out.println("DORM IS NOT BEEN OK !");
             }
+        } else {
+            System.out.println("HOUSING LOAN IS BEEN REGISTERED !");
         }
         return true;
     }
@@ -781,7 +792,11 @@ public class Menu {
             if (isMarried) {
                 partner.setMarried(true);
                 partner.setPartner(student1);
+                student1.setPartner(partner);
                 studentService.saveOrUpdate(partner);
+                sleep(1000);
+                studentService.saveOrUpdate(student1);
+
             }
         } catch (DataException e) {
             // Handle database access errors
